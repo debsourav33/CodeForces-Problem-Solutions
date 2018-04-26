@@ -92,23 +92,6 @@ main(){
 
     call(0,0);
 
-//    for(int i=0;i<n;i++){
-//        for(int j=0;j<n;j++){
-//            if(val[i][j]>=maxi){
-//                max_i=i;
-//                max_j=j;
-//                maxi=val[i][j];
-//            }
-//        }
-//    }
-
-//    for(int i=0;i<n;i++){
-//        for(int j=0;j<n;j++){
-//            cout<<val[i][j]<< " ";
-//        }
-//        puts("");
-//    }
-
     cout<<max_i+1<<" "<<max_j+1<<endl;
 
 
