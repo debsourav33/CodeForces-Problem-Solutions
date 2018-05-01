@@ -7,8 +7,6 @@ main(){
 
     unsigned long long n,row,col,s,t;
     cin>>row>>col;
-
-
     cin>>n;
 
     if(n<= (row+col-2)){

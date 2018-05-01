@@ -17,10 +17,8 @@ struct seg{
             r=_r;
             pos=_pos;
         }
-
-
-
 };
+
 
 bool comp(seg a, seg b){
     if(a.l==b.l)
@@ -42,9 +40,6 @@ main(){
 
     sort(v.begin(),v.end(),comp);
 
-    int mxR=v[0].r;
-    int mxPos=1;
-
     for(int i=0;i<v.size()-1;i++){
         if(v[i+1].r<=v[i].r){
             cout<<v[i+1].pos<<" "<<v[i].pos<<endl;
@@ -53,8 +48,6 @@ main(){
 
     }
 
-
     cout<<"-1 -1"<<endl;
-
 
 }
