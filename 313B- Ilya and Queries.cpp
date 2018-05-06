@@ -1,9 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
-
-
 main(){
     int m,l,r,cnt=0;
 
@@ -25,8 +22,5 @@ main(){
         cin>>l>>r;
         cout<<dp[r-1]-dp[l-1]<<endl;
     }
-
-
-
 
 }
