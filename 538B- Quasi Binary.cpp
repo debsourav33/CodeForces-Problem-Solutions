@@ -1,106 +1,66 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define MX 999999
-#define mxSIZE 1000000
 
-vector <int> bins, v;
-int dp[mxSIZE+1][66];
+#define clr(a) memset(a,0,sizeof(a))
+#define sets(a) memset(a,-1,sizeof(a))
+#define pb push_back
 
+int visited[1000006], level[1000006], parent[1000006];
+int bins[]= {1,10,11,100,101,110,111,1000,1001,1010,1011,1100,1101,1110,1111,10000,10001,10010,10011,10100,10101,10110,10111,11000,11001,11010,11011,11100,11101,11110,11111,100000,100001,100010,100011,100100,100101,100110,100111,101000,101001,101010,101011,101100,101101,101110,101111,110000,110001,110010,110011,110100,110101,110110,110111,111000,111001,111010,111011,111100,111101,111110,111111,1000000,1000001};
 
-struct direct{
-    int i;
-    int num;
-
-    direct(int _i, int _num){
-        i=_i;
-        num=_num;
-    }
-
-    direct(){
-    }
-
-}dir[mxSIZE+1][66];
-
-int call(int num, int i){
-    if(num==0)
-        return 0;
-
-    if(dp[num][i]!=-1)
-        return dp[num][i];
-
-    int opt1=MX, opt2= MX;
-
-    if(num>=bins[i])
-        opt1= 1+ call(num-bins[i],i);
-
-    if(i>0)
-        opt2= call(num,i-1);
-
-
-    if(opt1<=opt2)
-        dir[num][i]= direct(i, num-bins[i]);
-    else
-        dir[num][i]= direct(i-1, num);
-
-    return dp[num][i]=min(opt1,opt2);
-
+void reset(){
+    clr(visited);
+    clr(level);
+    sets(parent);
 }
 
+void bfs(int source){
+    queue<int> q;
+    q.push(source);
+    visited[source]= 1;
+    level[source]= 0;
 
-int getBin(int n)
-{
-    long long binaryNumber = 0;
-    int remainder, i = 1, step = 1;
+    while(!q.empty()){
+        int val= q.front();
+        q.pop();
 
-    while (n!=0)
-    {
-        remainder = n%2;
-        n /= 2;
-        binaryNumber += remainder*i;
-        i *= 10;
+        for(int i=0;i<65;i++){
+            if(val>=bins[i]){
+                int nd= val-bins[i];
+
+                if(!visited[nd]){
+                    visited[nd]= 1;
+                    level[nd]= level[val]+1;
+                    parent[nd]= val;
+                    q.push(nd);
+                }
+            }
+        }
+
+
     }
-    return binaryNumber;
 }
 
-void solution(int num, int i){
-
-    if(dir[num][i].i==-1)
+void print_path(int u){
+    if(parent[u]==-1){
+        puts("");
         return;
-
-    int direct_i= dir[num][i].i;
-    int direct_num= dir[num][i].num;
-
-
-
-    if(direct_i==i){
-        if(dir[direct_num][direct_i].i==-1)
-            cout<< bins[direct_i]<<endl;
-        else
-            cout<< bins[direct_i]<<" ";
     }
 
-    solution(direct_num, direct_i);
-
+    cout<<" "<<(parent[u]-u);
+    print_path(parent[u]);
 }
+
 
 main(){
-    int num;
-    cin>> num;
+    reset();
+    int val;
+    cin>>val;
 
-    memset(dp,-1,sizeof dp);
-    memset(dir,-1, sizeof dir);
-
-
-    int digits= log10(num)+1;
-
-    int border= ceil(pow(2,digits))-1;
-
-
-    for(int i=1; i<=border; i++)
-        bins.push_back(getBin(i));
-
-    cout<< call(num,bins.size()-1) <<endl;
-
-    solution(num, bins.size()-1);
+    bfs(val);
+    cout<<level[0]<<endl;
+    cout<<parent[0]-0;
+    print_path(parent[0]);
 
 }
+
