@@ -46,7 +46,7 @@ int dfs(int u){
     }
 
     vis[u]= 2;
-    if(cnt%2==0)  evens++;
+    if(cnt%2==0)  evens++; //we have found a even connected components
     return cnt;
 }
 
