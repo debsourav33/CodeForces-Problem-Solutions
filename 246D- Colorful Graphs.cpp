@@ -45,12 +45,10 @@ void dfs(int u){
             dfs(nd);
         }
 
-        if(vis[nd]==1){
+        if(vis[nd]){
             s[c[u]].insert(c[nd]);
         }
     }
-
-    vis[u]= 2;
 }
 
 main(){
