@@ -41,9 +41,11 @@ main(){
         return 0;
     }
 
-    for (int i=1; i<=sqrt(n)+1; i++)
+
+
+    for (i64 i=1; i*i<=n; i++)
     {
-        if(n/i==i)
+        if(i*i==n)
             cnt++;
 
         else if(n%i==0)
