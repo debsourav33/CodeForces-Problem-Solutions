@@ -1,35 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-//{
-#define si(a) scanf("%d",&a)
-#define sii(a,b) scanf("%d %d",&a,&b);
-#define siii(a,b,c) scanf("%d %d %d",&a,&b,&c);
 
-#define sl(a) scanf("%lld",&a)
-#define sll(a,b) scanf("%lld %lld",&a,&b);
-#define slll(a,b,c) scanf("%lld %lld %lld",&a,&b,&c);
+/*
+If current pos bit in a is 1, we can place 0 or 1 in bit position pos for x,
+Since 1-0= 1 xor 0 and 1-1= 1 xor 1
 
-#define cel(n,k) ((n-1)/k+1)
-#define sets(a) memset(a, -1, sizeof(a))
-#define clr(a) memset(a, 0, sizeof(a))
-#define max(a,b) ((a)>(b)? (a):(b))
-#define min(a,b) ((a)<(b)? (a):(b))
-#define fr(n) for(int i=0;i<n;i++)
-#define fr1(n) for(int i=1;i<=n;i++)
-#define pb push_back
-#define all(v) v.begin(),v.end()
-#define mp make_pair
-#define ff first
-#define ss second
-#define INF 10000007
-#define fastIO() ios_base::sync_with_stdio(false); cin.tie(NULL);
+but for bit 0, we can place only 0 for x, because 0-0= 0 xor 0
+but placing 1 for x causes 0 xor 1= 1 and
+in order to 0 - 1 to be 1,
+we have to have a borrow from nearmost 1, which leaves a vacancy of (0) there..
+hence at that 1, if xor is 1, sub is 0 (a had 1 (after borrow a has 0) and x has 0))
 
-typedef long long i64;
-typedef unsigned long long ull;
-typedef pair<int,int> pii;
-typedef pair<long long,long long> pll;
-//}
+So we have 2 choices for the position where bit is 1 and 1 choice where bit is 0 (in a)
+*/
 
 int a;
 
@@ -51,7 +35,7 @@ int call(int pos){
 
 int main(){
     int opt;
-    si(opt);
+    cin>>opt;
 
     while(opt--) {
         cin >> a;
