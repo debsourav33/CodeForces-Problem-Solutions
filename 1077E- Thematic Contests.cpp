@@ -39,17 +39,16 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-int a[100005], n;
+int a[200005], n;
 map<int,int> cnts;
 vector<int> b;
 
-
 int call(int val, int pos){
-    if(pos>=n)  return 0;
+    if(pos>=b.size())  return 0;
     int opt;
 
     int p= upper_bound(b.begin()+pos+1,b.end(),2*val-1)- b.begin();
-    opt= val+ call(2*val,pos);
+    opt= val+ call(2*val,p);
 
     return opt;
 }
@@ -67,12 +66,13 @@ int main(){
 
     sort(all(b));
 
-    fr(b.size())
-        cout<<b[i]<<" ";
+    /*fr(b.size())
+        cout<<b[i]<<" ";*/
 
     int ans= -1;
     fr1(n){
-        ans= max(ans,call(i,0));
+        int p= upper_bound(all(b),i-1)- b.begin();
+        ans= max(ans,call(i,p));
     }
 
     outis(ans);
