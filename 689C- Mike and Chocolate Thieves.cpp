@@ -39,41 +39,46 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-int a[100005], n;
-map<int,int> cnts;
-vector<int> b;
+i64 m;
 
+int can(i64 n){
+    i64 cnt=0;
+    for(i64 k=2; ;k++){
 
-int call(int val, int pos){
-    if(pos>=n)  return 0;
-    int opt;
+        i64 val= n/(k*k*k);
+        if(!val)  break;
 
-    int p= upper_bound(b.begin()+pos+1,b.end(),2*val-1)- b.begin();
-    opt= val+ call(2*val,pos);
+        cnt+= val;
+    }
 
-    return opt;
+    return cnt>= m;
+}
+
+i64 check(i64 n){
+    i64 cnt= 0;
+    for(i64 k=2; k*k*k<=n ;k++){
+        i64 val= n/(k*k*k);
+        if(!val)  break;
+
+        cnt+= val;
+    }
+
+    return cnt;
 }
 
 int main(){
-    si(n);
+    sl(m);
 
-    fr(n){
-        si(a[i]);
-        cnts[a[i]]++;
+    i64 lo= 0, hi= 1e18;
+
+    while(lo<hi){
+        i64 mid= (lo+hi)/2;
+
+        if(can(mid))  hi= mid;
+        else lo= mid+1;
     }
 
-    for(auto g: cnts)
-        b.pb(g.ss);
 
-    sort(all(b));
-
-    fr(b.size())
-        cout<<b[i]<<" ";
-
-    int ans= -1;
-    fr1(n){
-        ans= max(ans,call(i,0));
-    }
-
-    outis(ans);
+    if(check(lo)!=m)  puts("-1");
+    else  outl(lo);
 }
