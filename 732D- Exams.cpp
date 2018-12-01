@@ -39,43 +39,55 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-i64 n, m, x, a[100005];
-priority_queue<int, vector<int>, greater<int> > q;
+int n, m, x, a[100005], s[100005], b[100005];
+int taken[100005];
 
-int main(){
-    sll(n,m);
+int can(int r){
+    fr1(n)
+        b[i]= a[i];
 
-    fr(n){
-        sl(a[i]);
-    }
+    stack<int> st;
+    clr(taken);
 
-    fr(m){
-        sl(x);
-        q.push(x);
-    }
+    taken[0]= 1;
 
-    i64 cnt=0, c=0, ans= -1;
-
-    fr(n){
-        if(cnt && a[i]) {
-            cnt--;
-
-            if(q.empty() && !cnt) {
-                ans= i+1;
-                break;
-            }
-
+    for(int i=r;i>=1;i--){
+        if(!taken[s[i]]){
+            st.push(s[i]);
+            taken[s[i]]= 1;
             continue;
         }
 
-        c++;
+        if(!st.empty()){
+            b[st.top()]--;
 
-        if(!q.empty() && c==q.top()){
-            q.pop();
-            cnt++;
-            c= 0;
+            if(b[st.top()]==0)  st.pop();
         }
     }
 
-    outl(ans);
+    fr1(n)
+        if(b[i])  return 0;
+    return 1;
+}
+
+int main(){
+    sii(n,m);
+
+    fr1(n)
+        si(s[i]);
+
+    fr1(m)
+        si(a[i]);
+
+    int lo= 1, hi= n+1;
+
+    while(lo<hi){
+        int mid= (lo+hi)/2;
+
+        if(can(mid))  hi= mid;
+        else  lo= mid+1;
+    }
+
+    if(lo==n+1)  puts("-1");
+    else  outi(lo);
 }
